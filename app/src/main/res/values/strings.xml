@@ -9,4 +9,6 @@
     <string name="dark_theme">Dark Theme</string>
     <string name="settings">Settings</string>
     <string name="help_center">Help Center</string>
+
+    <string name="search_from_notes">Search from notes…</string>
 </resources>

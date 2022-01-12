@@ -28,7 +28,7 @@ import com.hari.notty.ui.theme.NottyGray
 
 @ExperimentalMaterialApi
 @Composable
-fun NottyDrawer() {
+fun NottyDrawer(onProfileClicked: () -> Unit, onDrawerItemClicked: (DrawerItem) -> Unit) {
     var selectedItem by remember { mutableStateOf(0) }
     Column(
         modifier = Modifier
@@ -36,26 +36,29 @@ fun NottyDrawer() {
             .fillMaxSize()
     ) {
         Spacer(Modifier.statusBarsHeight())
-        DrawerHeader()
+        DrawerHeader(onProfileClicked)
         DrawerItem.drawerItems.forEachIndexed { index, drawerItem ->
             DrawerItem(
                 drawerItem = drawerItem,
                 isSelected = selectedItem == index,
                 onClickItem = {
                     selectedItem = index
+                    onDrawerItemClicked.invoke(drawerItem)
                 })
         }
     }
 
 }
 
+@ExperimentalMaterialApi
 @Composable
-private fun DrawerHeader() {
+private fun DrawerHeader(onProfileClicked: () -> Unit) {
     Box(Modifier.padding(16.dp)) {
         Card(
             backgroundColor = NottyBlack,
             shape = CircleShape,
             elevation = 0.dp,
+            onClick = onProfileClicked
         ) {
             Row(
                 modifier = Modifier
@@ -92,10 +95,13 @@ fun DrawerItem(
     onClickItem: (DrawerItem) -> Unit
 ) {
     Card(
-        modifier = Modifier.padding(end = 16.dp).fillMaxWidth(),
+        modifier = Modifier
+            .padding(end = 16.dp)
+            .fillMaxWidth(),
         onClick = { onClickItem.invoke(drawerItem) },
         backgroundColor = if (isSelected) NottyBlack else NottyGray,
-        shape = RoundedCornerShape(topEnd = 50.dp, bottomEnd = 50.dp)
+        shape = RoundedCornerShape(topEnd = 50.dp, bottomEnd = 50.dp),
+        elevation = 0.dp
     ) {
         Row(
             verticalAlignment = Alignment.CenterVertically
