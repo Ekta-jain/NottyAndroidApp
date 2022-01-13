@@ -5,25 +5,24 @@ import androidx.annotation.StringRes
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
 import androidx.compose.material.ExperimentalMaterialApi
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.google.accompanist.insets.statusBarsHeight
 import com.hari.notty.R
-import com.hari.notty.ui.theme.NottyBlack
 import com.hari.notty.ui.theme.NottyGray
 
 @ExperimentalMaterialApi
@@ -32,12 +31,12 @@ fun NottyDrawer(onProfileClicked: () -> Unit, onDrawerItemClicked: (DrawerItem) 
     var selectedItem by remember { mutableStateOf(0) }
     Column(
         modifier = Modifier
-            .background(color = NottyGray)
+            .background(color = MaterialTheme.colors.primary)
             .fillMaxSize()
     ) {
         Spacer(Modifier.statusBarsHeight())
         DrawerHeader(onProfileClicked)
-        DrawerItem.drawerItems.forEachIndexed { index, drawerItem ->
+        DrawerItem.values().forEachIndexed { index, drawerItem ->
             DrawerItem(
                 drawerItem = drawerItem,
                 isSelected = selectedItem == index,
@@ -55,10 +54,10 @@ fun NottyDrawer(onProfileClicked: () -> Unit, onDrawerItemClicked: (DrawerItem) 
 private fun DrawerHeader(onProfileClicked: () -> Unit) {
     Box(Modifier.padding(16.dp)) {
         Card(
-            backgroundColor = NottyBlack,
             shape = CircleShape,
             elevation = 0.dp,
-            onClick = onProfileClicked
+            onClick = onProfileClicked,
+            backgroundColor = MaterialTheme.colors.onSurface
         ) {
             Row(
                 modifier = Modifier
@@ -79,8 +78,7 @@ private fun DrawerHeader(onProfileClicked: () -> Unit) {
                 Spacer(modifier = Modifier.size(10.dp))
                 Text(
                     text = "Hari Singh Kulhari",
-                    color = Color.White,
-                    style = MaterialTheme.typography.labelMedium
+                    style = MaterialTheme.typography.subtitle2
                 )
             }
         }
@@ -94,72 +92,62 @@ fun DrawerItem(
     isSelected: Boolean = false,
     onClickItem: (DrawerItem) -> Unit
 ) {
-    Card(
+
+    Row(
         modifier = Modifier
             .padding(end = 16.dp)
+            .background(
+                if (isSelected) MaterialTheme.colors.onSurface else MaterialTheme.colors.background,
+                RoundedCornerShape(topEnd = 50.dp, bottomEnd = 50.dp)
+            )
+            .clickable(onClick = { onClickItem.invoke(drawerItem) })
             .fillMaxWidth(),
-        onClick = { onClickItem.invoke(drawerItem) },
-        backgroundColor = if (isSelected) NottyBlack else NottyGray,
-        shape = RoundedCornerShape(topEnd = 50.dp, bottomEnd = 50.dp),
-        elevation = 0.dp
+        verticalAlignment = Alignment.CenterVertically
     ) {
-        Row(
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            Image(
-                painter = painterResource(id = drawerItem.iconRes),
-                contentDescription = "Drawer item icon",
-                modifier = Modifier.padding(start = 20.dp, top = 15.dp, bottom = 15.dp, end = 10.dp)
-            )
-            Text(
-                text = stringResource(drawerItem.titleRes),
-                color = Color.White,
-                style = MaterialTheme.typography.titleSmall
-            )
-        }
-    }
-}
-
-data class DrawerItem(
-    @DrawableRes val iconRes: Int,
-    @StringRes val titleRes: Int,
-    val isSelected: Boolean = false
-) {
-    companion object {
-        val drawerItems = mutableListOf(
-            DrawerItem(
-                iconRes = R.drawable.notes_icon,
-                titleRes = R.string.all_notes,
-                isSelected = true
-            ),
-            DrawerItem(
-                iconRes = R.drawable.notes_icon,
-                titleRes = R.string.reminders
-            ),
-            DrawerItem(
-                iconRes = R.drawable.label_icon,
-                titleRes = R.string.labels
-            ),
-            DrawerItem(
-                iconRes = R.drawable.archive_icon,
-                titleRes = R.string.archives
-            ),
-            DrawerItem(
-                iconRes = R.drawable.trash_icon,
-                titleRes = R.string.trash
-            ),
-            DrawerItem(
-                iconRes = R.drawable.notes_icon,
-                titleRes = R.string.dark_theme
-            ),
-            DrawerItem(
-                iconRes = R.drawable.settings_icon,
-                titleRes = R.string.settings
-            ),
-            DrawerItem(
-                iconRes = R.drawable.help_icon,
-                titleRes = R.string.help_center
-            )
+        Image(
+            painter = painterResource(id = drawerItem.iconRes),
+            contentDescription = "Drawer item icon",
+            modifier = Modifier.padding(start = 20.dp, top = 15.dp, bottom = 15.dp, end = 10.dp)
+        )
+        Text(
+            text = stringResource(drawerItem.titleRes),
+            style = MaterialTheme.typography.subtitle1
         )
     }
+
+}
+
+enum class DrawerItem(@DrawableRes val iconRes: Int, @StringRes val titleRes: Int) {
+    ALL_NOTES(
+        iconRes = R.drawable.notes_icon,
+        titleRes = R.string.all_notes
+    ),
+    REMINDERS(
+        iconRes = R.drawable.bell_icon,
+        titleRes = R.string.reminders
+    ),
+    LABELS(
+        iconRes = R.drawable.label_icon,
+        titleRes = R.string.labels
+    ),
+    ARCHIVES(
+        iconRes = R.drawable.archive_icon,
+        titleRes = R.string.archives
+    ),
+    TRASH(
+        iconRes = R.drawable.trash_icon,
+        titleRes = R.string.trash
+    ),
+    DARK_THEME(
+        iconRes = R.drawable.notes_icon,
+        titleRes = R.string.dark_theme
+    ),
+    SETTINGS(
+        iconRes = R.drawable.settings_icon,
+        titleRes = R.string.settings
+    ),
+    HELP_CENTER(
+        iconRes = R.drawable.help_icon,
+        titleRes = R.string.help_center
+    );
 }

@@ -1,7 +1,8 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources>
+
     <style name="Theme.Notty" parent="Platform.Theme.Notty">
-        <item name="colorPrimary">@color/blue300</item>
-        <item name="colorPrimaryDark">@color/blue400</item>
-        <item name="colorAccent">@color/yellow400</item>
+        <item name="colorPrimary">@color/nottyGray</item>
+        <item name="colorSecondary">@color/nottyBlack</item>
+        <item name="colorAccent">@color/yellow</item>
     </style>
 </resources>

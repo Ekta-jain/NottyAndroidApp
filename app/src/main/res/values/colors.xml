@@ -1,25 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
-    <!-- Light -->
-    <color name="blue500">#0540F2</color>
-    <color name="blue800">#001CCF</color>
-    <color name="yellow700">#F3B711</color>
-    <!-- Dark -->
-    <color name="blue300">#6F7EF9</color>
-    <color name="blue400">#4860F7</color>
-    <color name="yellow400">#F6E547</color>
-
-    <!-- Logo -->
-    <color name="yellow_logo">@color/yellow700</color>
-    <color name="blue_logo">@color/blue500</color>
-
-
     <color name="yellow">#FFFEB52B</color>
     <color name="blue">#FF3369FF</color>
     <color name="lightBlue">#FFA6BDFF</color>
     <color name="nottyBlack">#FF171C26</color>
     <color name="nottyGray">#FF283040</color>
+
+    <color name="white">#FFFFFF</color>
+
+    <color name="iconColor">#555555</color>
 
     <!-- Status bar -->
     <color name="black30">#4D000000</color>

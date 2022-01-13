@@ -1,96 +1,58 @@
 package com.hari.notty.ui.theme
 
 import android.annotation.SuppressLint
-import android.os.Build
 import androidx.compose.foundation.LocalIndication
 import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.darkColors
+import androidx.compose.material.lightColors
 import androidx.compose.material.ripple.rememberRipple
-import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
 
-private val NottyDarkColorPalette = darkColorScheme(
-    primary = Blue80,
-    onPrimary = Blue20,
-    primaryContainer = Blue30,
-    onPrimaryContainer = Blue90,
-    inversePrimary = Blue40,
-    secondary = DarkBlue80,
-    onSecondary = DarkBlue20,
-    secondaryContainer = DarkBlue30,
-    onSecondaryContainer = DarkBlue90,
-    tertiary = Yellow80,
-    onTertiary = Yellow20,
-    tertiaryContainer = Yellow30,
-    onTertiaryContainer = Yellow90,
-    error = Red80,
-    onError = Red20,
-    errorContainer = Red30,
-    onErrorContainer = Red90,
-    background = NottyBlack,
-    onBackground = Grey90,
-    surface = NottyBlack,
-    onSurface = Grey80,
-    inverseSurface = NottyBlack,
-    inverseOnSurface = Grey20,
-    surfaceVariant = BlueGrey30,
-    onSurfaceVariant = BlueGrey80,
-    outline = BlueGrey60
-)
-
-private val NottyLightColorPalette = lightColorScheme(
-    primary = Blue40,
+private val NottyDarkColorPalette = darkColors(
+    primary = NottyBlack,
+    primaryVariant = NottyBlack,
+    secondary = Blue,
+    secondaryVariant = Blue,
     onPrimary = Color.White,
-    primaryContainer = Blue90,
-    onPrimaryContainer = Blue10,
-    inversePrimary = Blue80,
-    secondary = DarkBlue40,
     onSecondary = Color.White,
-    secondaryContainer = DarkBlue90,
-    onSecondaryContainer = DarkBlue10,
-    tertiary = Yellow40,
-    onTertiary = Color.White,
-    tertiaryContainer = Yellow90,
-    onTertiaryContainer = Yellow10,
-    error = Red40,
-    onError = Color.White,
-    errorContainer = Red90,
-    onErrorContainer = Red10,
-    background = Grey99,
-    onBackground = Grey10,
-    surface = Grey99,
-    onSurface = Grey10,
-    inverseSurface = Grey20,
-    inverseOnSurface = Grey95,
-    surfaceVariant = BlueGrey90,
-    onSurfaceVariant = BlueGrey30,
-    outline = BlueGrey50
-)
+    background = NottyBlack,
+    surface = NottyBlack,
+    onSurface = NottyGray,
+    onBackground = NottyGray,
+
+    )
+
+private val NottyLightColorPalette = lightColors(
+    primary = Color.White,
+    primaryVariant = Color.White,
+    secondary = Blue,
+    secondaryVariant = Blue,
+    background = Color.White,
+    surface = Color.White,
+    onPrimary = NottyBlack,
+    onSecondary = Color.White,
+    onBackground = NottyF6,
+    onSurface = NottyF6,
+
+    )
 
 @SuppressLint("NewApi")
 @Composable
 fun NottyTheme(
     isDarkTheme: Boolean = isSystemInDarkTheme(),
-    isDynamicColor: Boolean = true,
     content: @Composable () -> Unit
 ) {
-    val dynamicColor = isDynamicColor && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S
 
     val myColorScheme = when {
-        dynamicColor && isDarkTheme -> {
-            dynamicDarkColorScheme(LocalContext.current)
-        }
-        dynamicColor && !isDarkTheme -> {
-            dynamicLightColorScheme(LocalContext.current)
-        }
         isDarkTheme -> NottyDarkColorPalette
         else -> NottyLightColorPalette
     }
 
     MaterialTheme(
-        colorScheme = myColorScheme,
+        colors = myColorScheme,
         typography = NottyTypography
     ) {
         val rippleIndication = rememberRipple()
@@ -99,5 +61,4 @@ fun NottyTheme(
             content = content
         )
     }
-
 }

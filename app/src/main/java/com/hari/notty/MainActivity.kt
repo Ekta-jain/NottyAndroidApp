@@ -4,26 +4,23 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.ExperimentalMaterialApi
-import androidx.compose.material.Surface
+import androidx.compose.material.Text
 import androidx.compose.material.rememberScaffoldState
-import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Text
 import androidx.compose.runtime.*
-import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.core.view.WindowCompat
 import com.google.accompanist.insets.ProvideWindowInsets
 import com.hari.notty.ui.components.BackPressHandler
+import com.hari.notty.ui.components.DrawerItem
 import com.hari.notty.ui.components.LocalBackPressedDispatcher
 import com.hari.notty.ui.components.NottyScaffold
-import com.hari.notty.ui.theme.NottyBlack
+import com.hari.notty.ui.notes.NavGraphs
 import com.hari.notty.ui.theme.NottyTheme
+import com.ramcosta.composedestinations.DestinationsNavHost
 import kotlinx.coroutines.launch
 
 
-@ExperimentalMaterial3Api
 @ExperimentalMaterialApi
 class MainActivity : ComponentActivity() {
 
@@ -36,7 +33,6 @@ class MainActivity : ComponentActivity() {
 
         setContent {
             ProvideWindowInsets(consumeWindowInsets = true) {
-
                 CompositionLocalProvider(
                     LocalBackPressedDispatcher provides this.onBackPressedDispatcher
                 ) {
@@ -76,16 +72,19 @@ class MainActivity : ComponentActivity() {
                             scope.launch {
                                 scaffoldState.drawerState.close()
                             }
+                            when (drawerItem) {
+                                DrawerItem.ALL_NOTES -> {}
+                                DrawerItem.REMINDERS -> {}
+                                DrawerItem.LABELS -> {}
+                                DrawerItem.ARCHIVES -> {}
+                                DrawerItem.TRASH -> {}
+                                DrawerItem.DARK_THEME -> {}
+                                DrawerItem.SETTINGS -> {}
+                                DrawerItem.HELP_CENTER -> {}
+                            }
                         }
                     ) {
-                        Surface(
-                            color = NottyBlack,
-                            modifier = Modifier.fillMaxSize()
-                        ) {
-
-
-                        }
-
+                        DestinationsNavHost(navGraph = NavGraphs.root)
                     }
                 }
             }

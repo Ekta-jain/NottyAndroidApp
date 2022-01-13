@@ -3,8 +3,15 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/Hari/Notty/app/src/main/res/drawable/archive_icon.xml" value="0.22205128205128205" />
         <entry key="..\:/Users/Hari/Notty/app/src/main/res/drawable/bell_icon.xml" value="0.20185185185185187" />
+        <entry key="..\:/Users/Hari/Notty/app/src/main/res/drawable/hamburger_icon.xml" value="0.21574074074074073" />
+        <entry key="..\:/Users/Hari/Notty/app/src/main/res/drawable/help_icon.xml" value="0.22205128205128205" />
+        <entry key="..\:/Users/Hari/Notty/app/src/main/res/drawable/label_icon.xml" value="0.22205128205128205" />
+        <entry key="..\:/Users/Hari/Notty/app/src/main/res/drawable/moon_icon.xml" value="0.22205128205128205" />
         <entry key="..\:/Users/Hari/Notty/app/src/main/res/drawable/notes_icon.xml" value="0.21203703703703702" />
+        <entry key="..\:/Users/Hari/Notty/app/src/main/res/drawable/settings_icon.xml" value="0.22205128205128205" />
+        <entry key="..\:/Users/Hari/Notty/app/src/main/res/drawable/trash_icon.xml" value="0.22205128205128205" />
       </map>
     </option>
   </component>

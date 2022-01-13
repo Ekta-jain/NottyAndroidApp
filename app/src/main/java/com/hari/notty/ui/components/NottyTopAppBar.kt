@@ -8,22 +8,21 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.IconButton
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
+import androidx.compose.material.IconButton
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Surface
+import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
+import com.google.accompanist.insets.statusBarsPadding
 import com.hari.notty.R
-import com.hari.notty.ui.theme.NottyBlack
 import com.hari.notty.ui.theme.NottyGray
 
 
@@ -33,14 +32,14 @@ fun NottyTopAppBar(
     onProfileClicked: () -> Unit,
 ) {
     Surface(
-        modifier = Modifier.fillMaxWidth(),
-        color = NottyBlack
+        modifier = Modifier.fillMaxWidth()
     ) {
         ConstraintLayout(
             modifier = Modifier
                 .fillMaxWidth()
+                .statusBarsPadding()
                 .padding(horizontal = 16.dp, vertical = 8.dp)
-                .background(NottyGray, RoundedCornerShape(100))
+                .background(MaterialTheme.colors.onSurface, RoundedCornerShape(100))
         ) {
             val (navigationIcon, title, profileAction) = createRefs()
 
@@ -65,9 +64,8 @@ fun NottyTopAppBar(
                     end.linkTo(profileAction.start)
                 },
                 text = stringResource(id = R.string.search_from_notes),
-                style = MaterialTheme.typography.bodyMedium,
-                textAlign = TextAlign.Center,
-                color = Color.White
+                style = MaterialTheme.typography.body2,
+                textAlign = TextAlign.Center
             )
 
             IconButton(
