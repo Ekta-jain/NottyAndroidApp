@@ -53,7 +53,8 @@ fun NottyTheme(
 
     MaterialTheme(
         colors = myColorScheme,
-        typography = NottyTypography
+        typography = NottyTypography,
+        shapes = NottyShapes
     ) {
         val rippleIndication = rememberRipple()
         CompositionLocalProvider(

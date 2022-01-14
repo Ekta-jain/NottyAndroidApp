@@ -19,7 +19,7 @@ import com.google.accompanist.pager.HorizontalPager
 import com.google.accompanist.pager.pagerTabIndicatorOffset
 import com.google.accompanist.pager.rememberPagerState
 import com.hari.notty.ui.components.LoadingState
-import com.hari.notty.ui.components.NoteCardComponent
+import com.hari.notty.ui.components.NoteCard
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 
@@ -67,6 +67,11 @@ fun AllNoteScreen(
 
             if (page == 0) {
                 LoadingState()
+            } else if (page == 1) {
+                LoadingState(
+                    isLoading = false,
+                    error = Throwable()
+                )
             } else {
                 LazyVerticalGrid(
                     cells = GridCells.Fixed(2),
@@ -74,7 +79,7 @@ fun AllNoteScreen(
                     verticalArrangement = Arrangement.spacedBy(8.dp),
                     horizontalArrangement = Arrangement.spacedBy(8.dp),
                 ) {
-                    items(10) { NoteCardComponent() }
+                    items(10) { NoteCard() }
 
                 }
             }

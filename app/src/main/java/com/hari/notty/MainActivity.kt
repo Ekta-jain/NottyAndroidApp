@@ -68,6 +68,7 @@ class MainActivity : ComponentActivity() {
                         onNavIconPressed = {
                             viewModel.openDrawer()
                         },
+                        onClickAddNote = {},
                         onDrawerItemClicked = { drawerItem ->
                             scope.launch {
                                 scaffoldState.drawerState.close()
