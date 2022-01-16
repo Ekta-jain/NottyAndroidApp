@@ -1,6 +1,7 @@
 package com.hari.notty.ui.components
 
 import androidx.compose.animation.AnimatedContent
+import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.animateIntAsState
@@ -63,13 +64,14 @@ fun NottyTopAppBar(
         )
 
         val cornerRadius by animateIntAsState(if (isAllNoteScreen(destination)) 100 else 0)
+        val color by animateColorAsState(if (isAllNoteScreen(destination)) MaterialTheme.colors.onSurface else MaterialTheme.colors.surface)
 
         ConstraintLayout(
             modifier = Modifier
                 .fillMaxWidth()
                 .statusBarsPadding()
                 .padding(horizontal = horizontalPadding, vertical = verticalPadding)
-                .background(MaterialTheme.colors.onSurface, RoundedCornerShape(cornerRadius))
+                .background(color, RoundedCornerShape(cornerRadius))
         ) {
 
             val (navigationIcon, title, profileAction) = createRefs()
@@ -111,7 +113,7 @@ fun NottyTopAppBar(
             ) {
                 Text(
                     text = stringResource(id = destination.title ?: R.string.app_name),
-                    style = MaterialTheme.typography.subtitle2,
+                    style = MaterialTheme.typography.subtitle1,
                     textAlign = TextAlign.Center
                 )
             }

@@ -25,7 +25,7 @@ fun AddNoteScreen(
     noteId: String
 ) {
     val scrollState = rememberScrollState()
-    var text = remember {
+    val text = remember {
         mutableStateOf("")
     }
     Column(
@@ -40,7 +40,13 @@ fun AddNoteScreen(
         OutlinedTextField(
             modifier = Modifier.fillMaxWidth(),
             value = text.value,
-            onValueChange = { text.value = it }
+            onValueChange = { text.value = it },
+            label = {
+                Text(
+                    text = "Title",
+                    color = MaterialTheme.colors.onSurface
+                )
+            }
         )
         Spacer(modifier = Modifier.size(16.dp))
         OutlinedTextField(
@@ -48,7 +54,17 @@ fun AddNoteScreen(
                 .fillMaxWidth()
                 .fillMaxHeight(),
             value = text.value,
-            onValueChange = {}
+            onValueChange = {},
+            label = {
+                Text(
+                    text = "Add note here...",
+                    color = MaterialTheme.colors.onSurface
+                )
+            },
+            colors = TextFieldDefaults.outlinedTextFieldColors(
+                focusedLabelColor = MaterialTheme.colors.onSurface,
+                unfocusedLabelColor = MaterialTheme.colors.onSurface,
+            )
         )
     }
 

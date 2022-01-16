@@ -42,6 +42,7 @@ fun NottyDrawer(
     ) {
         Spacer(Modifier.statusBarsHeight())
         DrawerHeader(navController)
+        Spacer(modifier = Modifier.size(16.dp))
         DrawerItem.values().forEachIndexed { index, drawerItem ->
             DrawerItem(
                 drawerItem = drawerItem,
@@ -60,7 +61,7 @@ fun NottyDrawer(
 @ExperimentalMaterialApi
 @Composable
 private fun DrawerHeader(navController: NavHostController) {
-    Box(Modifier.padding(16.dp)) {
+    Box(Modifier.padding(horizontal = 16.dp, vertical = 8.dp)) {
         Card(
             shape = CircleShape,
             elevation = 0.dp,
