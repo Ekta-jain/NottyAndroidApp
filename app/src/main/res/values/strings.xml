@@ -11,4 +11,8 @@
     <string name="help_center">Help Center</string>
 
     <string name="search_from_notes">Search from notes…</string>
+
+    <string name="add_note">Add note</string>
+
+
 </resources>

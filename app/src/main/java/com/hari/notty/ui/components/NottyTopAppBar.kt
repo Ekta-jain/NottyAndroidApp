@@ -1,5 +1,9 @@
 package com.hari.notty.ui.components
 
+import androidx.compose.animation.AnimatedContent
+import androidx.compose.animation.core.animateDpAsState
+import androidx.compose.animation.core.animateFloatAsState
+import androidx.compose.animation.core.animateIntAsState
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -8,73 +12,120 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.IconButton
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
-import androidx.compose.material.Text
+import androidx.compose.material.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.rounded.ArrowBack
+import androidx.compose.material.icons.rounded.Menu
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
+import androidx.navigation.NavHostController
 import com.google.accompanist.insets.statusBarsPadding
 import com.hari.notty.R
+import com.hari.notty.ui.destinations.AllNoteScreenDestination
+import com.hari.notty.ui.destinations.Destination
 import com.hari.notty.ui.theme.NottyGray
+import com.hari.notty.utils.title
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.launch
 
 
 @Composable
 fun NottyTopAppBar(
-    onNavIconPressed: () -> Unit = { },
-    onProfileClicked: () -> Unit,
+    destination: Destination,
+    navController: NavHostController,
+    coroutineScope: CoroutineScope,
+    scaffoldState: ScaffoldState
 ) {
     Surface(
         modifier = Modifier.fillMaxWidth()
     ) {
+        val horizontalPadding: Dp by animateDpAsState(
+            if (isAllNoteScreen(destination)) 16.dp else 0.dp
+        )
+
+        val verticalPadding: Dp by animateDpAsState(
+            if (isAllNoteScreen(destination)) 8.dp else 0.dp
+        )
+
+        val profileActionAlpha: Float by animateFloatAsState(
+            if (isAllNoteScreen(destination)) 1f else 0f
+        )
+
+        val cornerRadius by animateIntAsState(if (isAllNoteScreen(destination)) 100 else 0)
+
         ConstraintLayout(
             modifier = Modifier
                 .fillMaxWidth()
                 .statusBarsPadding()
-                .padding(horizontal = 16.dp, vertical = 8.dp)
-                .background(MaterialTheme.colors.onSurface, RoundedCornerShape(100))
+                .padding(horizontal = horizontalPadding, vertical = verticalPadding)
+                .background(MaterialTheme.colors.onSurface, RoundedCornerShape(cornerRadius))
         ) {
+
             val (navigationIcon, title, profileAction) = createRefs()
 
-            IconButton(
+            AnimatedContent(
                 modifier = Modifier.constrainAs(navigationIcon) {
                     top.linkTo(parent.top)
                     bottom.linkTo(parent.bottom)
                     start.linkTo(parent.start)
                 },
-                onClick = onNavIconPressed
-            ) {
-                Image(
-                    painter = painterResource(id = R.drawable.hamburger_icon),
-                    contentDescription = "Navigation Icon"
-                )
+                targetState = isAllNoteScreen(destination)
+            ) { isHomeScreen ->
+                IconButton(
+                    onClick = {
+                        coroutineScope.launch {
+                            if (isHomeScreen)
+                                scaffoldState.drawerState.open()
+                            else
+                                navController.popBackStack()
+                        }
+                    }
+                ) {
+                    Image(
+                        imageVector = if (isHomeScreen) Icons.Rounded.Menu else Icons.Rounded.ArrowBack,
+                        contentDescription = "Navigation Icon",
+                        colorFilter = ColorFilter.tint(color = MaterialTheme.colors.onPrimary)
+                    )
+                }
             }
-            Text(
+
+            AnimatedContent(
                 modifier = Modifier.constrainAs(title) {
                     top.linkTo(navigationIcon.top)
                     bottom.linkTo(navigationIcon.bottom)
                     start.linkTo(navigationIcon.end)
                     end.linkTo(profileAction.start)
                 },
-                text = stringResource(id = R.string.search_from_notes),
-                style = MaterialTheme.typography.body2,
-                textAlign = TextAlign.Center
-            )
+                targetState = destination
+            ) {
+                Text(
+                    text = stringResource(id = destination.title ?: R.string.app_name),
+                    style = MaterialTheme.typography.subtitle2,
+                    textAlign = TextAlign.Center
+                )
+            }
+
 
             IconButton(
-                modifier = Modifier.constrainAs(profileAction) {
-                    top.linkTo(parent.top)
-                    bottom.linkTo(parent.bottom)
-                    end.linkTo(parent.end)
-                },
-                onClick = onProfileClicked
+                modifier = Modifier
+                    .constrainAs(profileAction) {
+                        top.linkTo(parent.top)
+                        bottom.linkTo(parent.bottom)
+                        end.linkTo(parent.end)
+                    }
+                    .alpha(profileActionAlpha),
+                onClick = {}
             ) {
                 Image(
                     painter = painterResource(id = R.drawable.img),
@@ -86,8 +137,11 @@ fun NottyTopAppBar(
                         .border(1.dp, NottyGray, CircleShape)
                 )
             }
-
         }
-
     }
+
 }
+
+
+fun isAllNoteScreen(destination: Destination) =
+    destination.route == AllNoteScreenDestination.route

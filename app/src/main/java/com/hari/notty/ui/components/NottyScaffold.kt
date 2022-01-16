@@ -1,82 +1,50 @@
 package com.hari.notty.ui.components
 
-import android.content.res.Configuration.UI_MODE_NIGHT_YES
+import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.material.*
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.Scaffold
+import androidx.compose.material.ScaffoldState
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
-import com.google.accompanist.insets.navigationBarsPadding
-import com.hari.notty.ui.theme.Blue
-import com.hari.notty.ui.theme.NottyTheme
+import androidx.compose.runtime.getValue
+import androidx.navigation.NavBackStackEntry
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.currentBackStackEntryAsState
+import com.hari.notty.ui.NavGraphs
+import com.hari.notty.ui.destinations.Destination
+import com.hari.notty.ui.destinations.TypedDestination
+import com.hari.notty.ui.navDestination
+
+fun ArrayDeque<NavBackStackEntry>.print(prefix: String = "stack") {
+    val stack = toMutableList()
+        .filter { it.destination.route !in listOf(NavGraphs.root.route, NavGraphs.root.route) }
+        .map { it.navDestination?.javaClass?.simpleName + "@" + it.toString().split("@")[1] }
+        .toTypedArray().contentToString()
+    println("$prefix = $stack")
+}
 
 
-@ExperimentalMaterialApi
 @Composable
 fun NottyScaffold(
-    scaffoldState: ScaffoldState = rememberScaffoldState(),
-    onProfileClicked: () -> Unit,
-    onDrawerItemClicked: (DrawerItem) -> Unit,
-    onNavIconPressed: () -> Unit,
-    onClickAddNote: () -> Unit,
+    navController: NavHostController,
+    scaffoldState: ScaffoldState,
+    topBar: @Composable (Destination) -> Unit,
+    drawerContent: @Composable ColumnScope.(Destination) -> Unit,
+    floatingActionButton: @Composable (Destination) -> Unit,
     content: @Composable (PaddingValues) -> Unit
 ) {
-    NottyTheme {
-        Scaffold(
-            scaffoldState = scaffoldState,
-            drawerContent = { NottyDrawer(onProfileClicked, onDrawerItemClicked) },
-            topBar = { NottyTopAppBar(onNavIconPressed = onNavIconPressed, onProfileClicked) },
-            content = content,
-            floatingActionButton = {
-                ExtendedFloatingActionButton(
-                    modifier = Modifier.navigationBarsPadding(),
-                    onClick = onClickAddNote,
-                    backgroundColor = Blue,
-                    text = { Text(text = "Add Note") },
-                    icon = {
-                        Icon(
-                            imageVector = Icons.Default.Add,
-                            contentDescription = "Add Note"
-                        )
-                    }
-                )
-            }
-        )
-    }
-}
+    val currentBackStackEntryAsState by navController.currentBackStackEntryAsState()
+    val destination: TypedDestination<out Any?> =
+        currentBackStackEntryAsState?.navDestination ?: NavGraphs.root.startDestination
+
+    navController.backQueue.print()
 
 
-@ExperimentalMaterialApi
-@Preview(
-    name = "Dark Mode",
-    showBackground = true,
-    uiMode = UI_MODE_NIGHT_YES
-)
-@Composable
-fun ScaffoldDarkPreview() {
-    NottyScaffold(
-        onProfileClicked = {},
-        onNavIconPressed = {},
-        onDrawerItemClicked = {},
-        onClickAddNote = {}) {
+    Scaffold(
+        scaffoldState = scaffoldState,
+        topBar = { topBar(destination) },
+        drawerContent = { drawerContent(destination) },
+        floatingActionButton = { floatingActionButton(destination) },
+        content = content
+    )
 
-    }
-}
-
-@ExperimentalMaterialApi
-@Preview(
-    name = "Light Mode",
-    showBackground = true
-)
-@Composable
-fun ScaffoldPreview() {
-    NottyScaffold(
-        onProfileClicked = {},
-        onNavIconPressed = {},
-        onDrawerItemClicked = {},
-        onClickAddNote = {}) {
-
-    }
 }

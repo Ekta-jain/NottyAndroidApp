@@ -5,7 +5,7 @@ import androidx.compose.material.Shapes
 import androidx.compose.ui.unit.dp
 
 val NottyShapes = Shapes(
-    small = RoundedCornerShape(100),
+    small = RoundedCornerShape(8.dp),
     medium = RoundedCornerShape(8.dp),
     large = RoundedCornerShape(0.dp)
 )

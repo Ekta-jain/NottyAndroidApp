@@ -116,6 +116,7 @@ dependencies {
     implementation Libs.Accompanist.insets
     implementation Libs.Accompanist.pager
     implementation Libs.Accompanist.pagerIndicators
+    implementation Libs.Accompanist.navigation
 
 
     // Room components

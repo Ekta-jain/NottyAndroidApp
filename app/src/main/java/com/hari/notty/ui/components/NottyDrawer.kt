@@ -9,10 +9,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Card
-import androidx.compose.material.ExperimentalMaterialApi
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
+import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -21,13 +18,22 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavHostController
 import com.google.accompanist.insets.statusBarsHeight
 import com.hari.notty.R
+import com.hari.notty.ui.destinations.Destination
 import com.hari.notty.ui.theme.NottyGray
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.launch
 
 @ExperimentalMaterialApi
 @Composable
-fun NottyDrawer(onProfileClicked: () -> Unit, onDrawerItemClicked: (DrawerItem) -> Unit) {
+fun NottyDrawer(
+    destination: Destination,
+    navController: NavHostController,
+    coroutineScope: CoroutineScope,
+    scaffoldState: ScaffoldState
+) {
     var selectedItem by remember { mutableStateOf(0) }
     Column(
         modifier = Modifier
@@ -35,14 +41,16 @@ fun NottyDrawer(onProfileClicked: () -> Unit, onDrawerItemClicked: (DrawerItem) 
             .fillMaxSize()
     ) {
         Spacer(Modifier.statusBarsHeight())
-        DrawerHeader(onProfileClicked)
+        DrawerHeader(navController)
         DrawerItem.values().forEachIndexed { index, drawerItem ->
             DrawerItem(
                 drawerItem = drawerItem,
                 isSelected = selectedItem == index,
                 onClickItem = {
                     selectedItem = index
-                    onDrawerItemClicked.invoke(drawerItem)
+                    coroutineScope.launch {
+                        scaffoldState.drawerState.close()
+                    }
                 })
         }
     }
@@ -51,12 +59,12 @@ fun NottyDrawer(onProfileClicked: () -> Unit, onDrawerItemClicked: (DrawerItem) 
 
 @ExperimentalMaterialApi
 @Composable
-private fun DrawerHeader(onProfileClicked: () -> Unit) {
+private fun DrawerHeader(navController: NavHostController) {
     Box(Modifier.padding(16.dp)) {
         Card(
             shape = CircleShape,
             elevation = 0.dp,
-            onClick = onProfileClicked,
+            onClick = {},
             backgroundColor = MaterialTheme.colors.onSurface
         ) {
             Row(

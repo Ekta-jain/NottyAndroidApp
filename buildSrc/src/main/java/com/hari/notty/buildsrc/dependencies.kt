@@ -19,6 +19,7 @@ object Libs {
         const val insets = "com.google.accompanist:accompanist-insets:$version"
         const val pager = "com.google.accompanist:accompanist-pager:$version"
         const val pagerIndicators = "com.google.accompanist:accompanist-pager-indicators:$version"
+        const val navigation = "com.google.accompanist:accompanist-navigation-animation:$version"
     }
 
     object Kotlin {
@@ -75,8 +76,9 @@ object Libs {
                 const val navigationCompose = "androidx.navigation:navigation-compose:$version"
 
                 object Raamcosta {
-                    const val version = "1.1.2-beta"
-                    const val navigation = "io.github.raamcosta.compose-destinations:core:$version"
+                    const val version = "1.1.4-beta"
+                    const val navigation =
+                        "io.github.raamcosta.compose-destinations:animations-core:$version"
                     const val ksp = "io.github.raamcosta.compose-destinations:ksp:$version"
                 }
             }
