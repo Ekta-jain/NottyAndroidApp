@@ -21,9 +21,8 @@ private val NottyDarkColorPalette = darkColors(
     background = NottyBlack,
     surface = NottyBlack,
     onSurface = NottyGray,
-    onBackground = NottyGray,
-
-    )
+    onBackground = NottyGray
+)
 
 private val NottyLightColorPalette = lightColors(
     primary = Color.White,
@@ -35,9 +34,8 @@ private val NottyLightColorPalette = lightColors(
     onPrimary = NottyBlack,
     onSecondary = Color.White,
     onBackground = NottyF6,
-    onSurface = NottyF6,
-
-    )
+    onSurface = NottyF6
+)
 
 @SuppressLint("NewApi")
 @Composable

@@ -4,7 +4,10 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.*
+import androidx.compose.material.Icon
+import androidx.compose.material.IconButton
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Category
 import androidx.compose.material.icons.rounded.EditCalendar
@@ -13,8 +16,11 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.google.accompanist.insets.navigationBarsPadding
+import com.hari.notty.R
+import com.hari.notty.ui.components.NottyTextField
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 
@@ -36,39 +42,24 @@ fun AddNoteScreen(
             .verticalScroll(scrollState)
     ) {
         AddNoteHeader()
-        Spacer(modifier = Modifier.size(16.dp))
-        OutlinedTextField(
-            modifier = Modifier.fillMaxWidth(),
-            value = text.value,
-            onValueChange = { text.value = it },
-            label = {
-                Text(
-                    text = "Title",
-                    color = MaterialTheme.colors.onSurface
-                )
-            }
-        )
-        Spacer(modifier = Modifier.size(16.dp))
-        OutlinedTextField(
+        NottyTextField(
             modifier = Modifier
                 .fillMaxWidth()
-                .fillMaxHeight(),
+                .padding(horizontal = 16.dp),
             value = text.value,
-            onValueChange = {},
-            label = {
-                Text(
-                    text = "Add note here...",
-                    color = MaterialTheme.colors.onSurface
-                )
-            },
-            colors = TextFieldDefaults.outlinedTextFieldColors(
-                focusedLabelColor = MaterialTheme.colors.onSurface,
-                unfocusedLabelColor = MaterialTheme.colors.onSurface,
-            )
+            onValueChange = { text.value = it },
+            label = stringResource(R.string.title)
+        )
+        NottyTextField(
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(600.dp)
+                .padding(horizontal = 16.dp),
+            value = text.value,
+            onValueChange = { text.value = it },
+            label = stringResource(R.string.note_here)
         )
     }
-
-
 }
 
 @Composable

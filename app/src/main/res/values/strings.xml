@@ -13,6 +13,8 @@
     <string name="search_from_notes">Search from notes…</string>
 
     <string name="add_note">Add note</string>
+    <string name="title">Title</string>
+    <string name="note_here">Note here…</string>
 
 
 </resources>

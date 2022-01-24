@@ -102,21 +102,17 @@ fun NottyTopAppBar(
                 }
             }
 
-            AnimatedContent(
+            Text(
                 modifier = Modifier.constrainAs(title) {
                     top.linkTo(navigationIcon.top)
                     bottom.linkTo(navigationIcon.bottom)
                     start.linkTo(navigationIcon.end)
                     end.linkTo(profileAction.start)
                 },
-                targetState = destination
-            ) {
-                Text(
-                    text = stringResource(id = destination.title ?: R.string.app_name),
-                    style = MaterialTheme.typography.subtitle1,
-                    textAlign = TextAlign.Center
-                )
-            }
+                text = stringResource(id = destination.title ?: R.string.app_name),
+                style = MaterialTheme.typography.subtitle1,
+                textAlign = TextAlign.Center
+            )
 
 
             IconButton(
