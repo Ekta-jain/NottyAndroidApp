@@ -13,12 +13,12 @@ import androidx.compose.material.icons.rounded.Category
 import androidx.compose.material.icons.rounded.EditCalendar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import com.google.accompanist.insets.navigationBarsPadding
+import com.google.accompanist.insets.navigationBarsWithImePadding
 import com.hari.notty.R
 import com.hari.notty.ui.components.NottyTextField
 import com.ramcosta.composedestinations.annotation.Destination
@@ -28,17 +28,19 @@ import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 @Composable
 fun AddNoteScreen(
     navigator: DestinationsNavigator,
-    noteId: String
+    noteId: String? = null
 ) {
     val scrollState = rememberScrollState()
-    val text = remember {
+    val title = rememberSaveable {
+        mutableStateOf("")
+    }
+    val note = rememberSaveable {
         mutableStateOf("")
     }
     Column(
         modifier = Modifier
             .background(MaterialTheme.colors.surface)
             .fillMaxSize()
-            .navigationBarsPadding()
             .verticalScroll(scrollState)
     ) {
         AddNoteHeader()
@@ -46,17 +48,20 @@ fun AddNoteScreen(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(horizontal = 16.dp),
-            value = text.value,
-            onValueChange = { text.value = it },
-            label = stringResource(R.string.title)
+            value = title.value,
+            onValueChange = { title.value = it },
+            label = stringResource(R.string.title),
+            singleLine = true
         )
         NottyTextField(
             modifier = Modifier
                 .fillMaxWidth()
-                .height(600.dp)
-                .padding(horizontal = 16.dp),
-            value = text.value,
-            onValueChange = { text.value = it },
+                .weight(1f)
+                .padding(bottom = 16.dp)
+                .padding(horizontal = 16.dp)
+                .navigationBarsWithImePadding(),
+            value = note.value,
+            onValueChange = { note.value = it },
             label = stringResource(R.string.note_here)
         )
     }

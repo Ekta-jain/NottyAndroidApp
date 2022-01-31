@@ -12,12 +12,14 @@ fun NottyTextField(
     modifier: Modifier = Modifier,
     value: String,
     onValueChange: (String) -> Unit,
-    label: String
+    label: String,
+    singleLine: Boolean = false
 ) {
     OutlinedTextField(
         modifier = modifier,
         value = value,
         onValueChange = onValueChange,
+        singleLine = singleLine,
         label = { Text(text = label) },
         colors = TextFieldDefaults.outlinedTextFieldColors(
             focusedBorderColor = MaterialTheme.colors.secondary.copy(alpha = ContentAlpha.high),
