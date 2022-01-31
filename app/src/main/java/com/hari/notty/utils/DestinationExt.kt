@@ -5,6 +5,7 @@ import com.hari.notty.R
 import com.hari.notty.ui.destinations.AddNoteScreenDestination
 import com.hari.notty.ui.destinations.AllNoteScreenDestination
 import com.hari.notty.ui.destinations.Destination
+import com.hari.notty.ui.destinations.LabelsScreenDestination
 
 @get:StringRes
 val Destination.requireTitle
@@ -18,5 +19,6 @@ val Destination.title
         return when (this) {
             AllNoteScreenDestination -> R.string.search_from_notes
             AddNoteScreenDestination -> R.string.add_note
+            LabelsScreenDestination -> R.string.labels
         }
     }

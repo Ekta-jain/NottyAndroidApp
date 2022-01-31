@@ -15,6 +15,9 @@
     <string name="add_note">Add note</string>
     <string name="title">Title</string>
     <string name="note_here">Note here…</string>
+    <string name="delete">Delete</string>
+    <string name="rename">Rename</string>
+    <string name="options">Options</string>
 
 
 </resources>

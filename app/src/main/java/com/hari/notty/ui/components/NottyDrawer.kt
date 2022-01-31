@@ -10,7 +10,11 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -22,7 +26,9 @@ import androidx.navigation.NavHostController
 import com.google.accompanist.insets.statusBarsHeight
 import com.hari.notty.R
 import com.hari.notty.ui.destinations.Destination
+import com.hari.notty.ui.destinations.LabelsScreenDestination
 import com.hari.notty.ui.theme.NottyGray
+import com.ramcosta.composedestinations.navigation.navigateTo
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
@@ -34,7 +40,7 @@ fun NottyDrawer(
     coroutineScope: CoroutineScope,
     scaffoldState: ScaffoldState
 ) {
-    var selectedItem by remember { mutableStateOf(0) }
+    var selectedItem by rememberSaveable { mutableStateOf(0) }
     Column(
         modifier = Modifier
             .background(color = MaterialTheme.colors.primary)
@@ -47,15 +53,42 @@ fun NottyDrawer(
             DrawerItem(
                 drawerItem = drawerItem,
                 isSelected = selectedItem == index,
-                onClickItem = {
-                    selectedItem = index
+                onClickItem = { item ->
                     coroutineScope.launch {
                         scaffoldState.drawerState.close()
+                        handleDrawerNavigation(item, navController)
+                        selectedItem = index
                     }
-                })
+                }
+            )
         }
     }
 
+}
+
+private fun handleDrawerNavigation(
+    item: DrawerItem,
+    navController: NavHostController
+) {
+    when (item) {
+        DrawerItem.ALL_NOTES -> {
+        }
+        DrawerItem.REMINDERS -> {
+        }
+        DrawerItem.LABELS -> {
+            navController.navigateTo(LabelsScreenDestination)
+        }
+        DrawerItem.ARCHIVES -> {
+        }
+        DrawerItem.TRASH -> {
+        }
+        DrawerItem.DARK_THEME -> {
+        }
+        DrawerItem.SETTINGS -> {
+        }
+        DrawerItem.HELP_CENTER -> {
+        }
+    }
 }
 
 @ExperimentalMaterialApi
