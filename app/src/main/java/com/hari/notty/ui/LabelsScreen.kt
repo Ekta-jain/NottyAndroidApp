@@ -87,14 +87,12 @@ fun LabelItem(
                             icon = Icons.Default.DeleteOutline,
                             iconTint = MaterialTheme.colors.error
                         )
-
                     }
                     DropdownMenuItem(
                         onClick = {
                             onClickRename?.invoke()
                             expanded = false
                         }
-
                     ) {
                         DropdownItem(
                             label = stringResource(R.string.rename),
