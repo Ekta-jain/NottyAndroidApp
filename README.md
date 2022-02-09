@@ -262,6 +262,6 @@ Use this space to list resources you find helpful and would like to give credit 
 
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 
-[linkedin-url]: https://linkedin.com/in/othneildrew
+[linkedin-url]: https://www.linkedin.com/in/hari-singh-kulhari/
 
 [product-screenshot]: images/screenshot.jpg
