@@ -25,6 +25,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.google.accompanist.insets.statusBarsHeight
 import com.hari.notty.R
+import com.hari.notty.ui.destinations.AllNoteScreenDestination
 import com.hari.notty.ui.destinations.Destination
 import com.hari.notty.ui.destinations.LabelsScreenDestination
 import com.hari.notty.ui.theme.NottyGray
@@ -72,6 +73,7 @@ private fun handleDrawerNavigation(
 ) {
     when (item) {
         DrawerItem.ALL_NOTES -> {
+            navController.navigateTo(AllNoteScreenDestination)
         }
         DrawerItem.REMINDERS -> {
         }

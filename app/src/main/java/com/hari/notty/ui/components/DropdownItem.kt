@@ -28,7 +28,7 @@ fun DropdownItem(
                 contentDescription = label,
                 tint = iconTint
             )
-            Spacer(modifier = Modifier.size(4.dp))
+            Spacer(modifier = Modifier.size(8.dp))
         }
         Text(label)
     }

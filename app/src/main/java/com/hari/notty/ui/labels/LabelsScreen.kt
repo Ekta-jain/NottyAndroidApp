@@ -1,4 +1,4 @@
-package com.hari.notty.ui
+package com.hari.notty.ui.labels
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -50,7 +50,8 @@ fun LabelItem(
 ) {
     var expanded by remember { mutableStateOf(false) }
     Card(
-        onClick = { onClick?.invoke() }
+        onClick = { onClick?.invoke() },
+        elevation = 8.dp
     ) {
         Row(
             modifier = Modifier
