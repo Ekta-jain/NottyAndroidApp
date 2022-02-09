@@ -214,9 +214,9 @@ Distributed under the MIT License. See <a href="https://github.com/HariKulhari06
 <!-- CONTACT -->
 ## Contact
 
-Your Name - [@your_twitter](https://twitter.com/your_username) - email@example.com
+[@HariKulhari](https://twitter.com/HariKulhari) - hari.choudhary1905@gmail.com
 
-Project Link: [https://github.com/your_username/repo_name](https://github.com/your_username/repo_name)
+Project Link: [https://github.com/HariKulhari06/NottyAndroidApp](https://github.com/HariKulhari06/NottyAndroidApp)
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
