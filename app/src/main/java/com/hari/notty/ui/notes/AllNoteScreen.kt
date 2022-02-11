@@ -26,7 +26,7 @@ import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 import kotlinx.coroutines.launch
 
-@Destination(start = true)
+@Destination
 @Composable
 fun AllNoteScreen(
     navigator: DestinationsNavigator

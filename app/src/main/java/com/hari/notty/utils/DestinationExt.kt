@@ -2,10 +2,7 @@ package com.hari.notty.utils
 
 import androidx.annotation.StringRes
 import com.hari.notty.R
-import com.hari.notty.ui.destinations.AddNoteScreenDestination
-import com.hari.notty.ui.destinations.AllNoteScreenDestination
-import com.hari.notty.ui.destinations.Destination
-import com.hari.notty.ui.destinations.LabelsScreenDestination
+import com.hari.notty.ui.destinations.*
 
 @get:StringRes
 val Destination.requireTitle
@@ -20,5 +17,8 @@ val Destination.title
             AllNoteScreenDestination -> R.string.search_from_notes
             AddNoteScreenDestination -> R.string.add_note
             LabelsScreenDestination -> R.string.labels
+            else -> null
         }
     }
+
+fun Destination.isSplashScreen() = this == SplashScreenDestination

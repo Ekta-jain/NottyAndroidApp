@@ -13,6 +13,7 @@ import com.hari.notty.ui.NavGraphs
 import com.hari.notty.ui.destinations.Destination
 import com.hari.notty.ui.destinations.TypedDestination
 import com.hari.notty.ui.navDestination
+import com.hari.notty.utils.isSplashScreen
 
 fun ArrayDeque<NavBackStackEntry>.print(prefix: String = "stack") {
     val stack = toMutableList()
@@ -38,12 +39,20 @@ fun NottyScaffold(
 
     navController.backQueue.print()
 
-
     Scaffold(
         scaffoldState = scaffoldState,
-        topBar = { topBar(destination) },
-        drawerContent = { drawerContent(destination) },
-        floatingActionButton = { floatingActionButton(destination) },
+        topBar = {
+            if (destination.isSplashScreen().not())
+                topBar(destination)
+        },
+        drawerContent = {
+            if (destination.isSplashScreen().not())
+                drawerContent(destination)
+        },
+        floatingActionButton = {
+            if (destination.isSplashScreen().not())
+                floatingActionButton(destination)
+        },
         content = content
     )
 

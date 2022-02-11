@@ -18,7 +18,7 @@ import com.hari.notty.ui.components.DropdownItem
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 
-@Destination()
+@Destination
 @Composable
 fun LabelsScreen(
     navigator: DestinationsNavigator
@@ -51,7 +51,7 @@ fun LabelItem(
     var expanded by remember { mutableStateOf(false) }
     Card(
         onClick = { onClick?.invoke() },
-        elevation = 8.dp
+        elevation = 2.dp
     ) {
         Row(
             modifier = Modifier
