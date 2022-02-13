@@ -11,10 +11,7 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.setValue
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -41,7 +38,10 @@ fun NottyDrawer(
     coroutineScope: CoroutineScope,
     scaffoldState: ScaffoldState
 ) {
-    var selectedItem by rememberSaveable { mutableStateOf(0) }
+
+    LaunchedEffect(key1 = destination, block = {
+        // scaffoldState.drawerState.snapTo(DrawerValue.Closed)
+    })
     Column(
         modifier = Modifier
             .background(color = MaterialTheme.colors.primary)
@@ -53,12 +53,11 @@ fun NottyDrawer(
         DrawerItem.values().forEachIndexed { index, drawerItem ->
             DrawerItem(
                 drawerItem = drawerItem,
-                isSelected = selectedItem == index,
+                isSelected = drawerItem.destination == destination,
                 onClickItem = { item ->
                     coroutineScope.launch {
                         scaffoldState.drawerState.close()
                         handleDrawerNavigation(item, navController)
-                        selectedItem = index
                     }
                 }
             )
@@ -161,10 +160,15 @@ fun DrawerItem(
 
 }
 
-enum class DrawerItem(@DrawableRes val iconRes: Int, @StringRes val titleRes: Int) {
+enum class DrawerItem(
+    @DrawableRes val iconRes: Int,
+    @StringRes val titleRes: Int,
+    val destination: Destination? = null
+) {
     ALL_NOTES(
         iconRes = R.drawable.notes_icon,
-        titleRes = R.string.all_notes
+        titleRes = R.string.all_notes,
+        destination = AllNoteScreenDestination
     ),
     REMINDERS(
         iconRes = R.drawable.bell_icon,
@@ -172,7 +176,8 @@ enum class DrawerItem(@DrawableRes val iconRes: Int, @StringRes val titleRes: In
     ),
     LABELS(
         iconRes = R.drawable.label_icon,
-        titleRes = R.string.labels
+        titleRes = R.string.labels,
+        destination = LabelsScreenDestination
     ),
     ARCHIVES(
         iconRes = R.drawable.archive_icon,
