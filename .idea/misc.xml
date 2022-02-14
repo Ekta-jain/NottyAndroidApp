@@ -14,10 +14,11 @@
         <entry key="..\:/Users/Hari/Notty/app/src/main/res/drawable/notes_icon.xml" value="0.21203703703703702" />
         <entry key="..\:/Users/Hari/Notty/app/src/main/res/drawable/settings_icon.xml" value="0.22205128205128205" />
         <entry key="..\:/Users/Hari/Notty/app/src/main/res/drawable/trash_icon.xml" value="0.22205128205128205" />
+        <entry key="..\:/Users/LENOVO/AndroidStudioProjects/NottyAndroidApp/app/src/main/res/drawable/logo_svg.xml" value="0.127" />
       </map>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="JDK" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="11" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">
