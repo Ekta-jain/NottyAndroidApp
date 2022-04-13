@@ -22,3 +22,12 @@ val Destination.title
     }
 
 fun Destination.isSplashScreen() = this == SplashScreenDestination
+
+
+fun Destination.isStartingScreens(): Boolean {
+  return  when(this){
+        SplashScreenDestination, WelcomeScreenDestination -> true
+        else -> false
+    }
+}
+

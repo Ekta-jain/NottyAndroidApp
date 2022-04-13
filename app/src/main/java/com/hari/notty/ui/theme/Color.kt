@@ -10,3 +10,6 @@ val NottyGray = Color(0xFF283040)
 val NottyF6 = Color(0xFFF6F6F6)
 
 val SplashBackground = Color(0xFFE9D4C5)
+
+val Facebook = Color(0xFF4267B2)
+val Google = Color(0xFFDB4437)

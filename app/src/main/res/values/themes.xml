@@ -1,8 +1,7 @@
 <resources>
-    <!-- Base application theme. -->
-
     <style name="Platform.Theme.Notty" parent="Theme.MaterialComponents.DayNight.NoActionBar">
-        <item name="android:statusBarColor">@color/black30</item>
+        <item name="android:navigationBarColor">@color/nav_bar</item>
+        <item name="android:statusBarColor">@color/nav_bar</item>
     </style>
 
     <style name="Theme.Notty" parent="Platform.Theme.Notty">
@@ -15,7 +14,7 @@
     <style name="Theme.Notty.Starting" parent="Theme.SplashScreen">
         <item name="windowSplashScreenBackground">@color/black30</item>
         <item name="windowSplashScreenAnimatedIcon">@drawable/logo_svg</item>
-        <item name="postSplashScreenTheme">@style/Theme.Notty</item>  # Required.
+        <item name="postSplashScreenTheme">@style/Theme.Notty</item>
     </style>
 
 </resources>

@@ -30,7 +30,7 @@ import com.ramcosta.composedestinations.navigation.DestinationsNavigator
  * Splash Screen Composable
  * @param navigator [DestinationsNavigator]
  */
-@Destination(start = true)
+@Destination
 @Composable
 fun SplashScreen(
     navigator: DestinationsNavigator
@@ -74,7 +74,7 @@ private fun SplashIcon(scale: Animatable<Float, AnimationVector1D>) {
     }
 }
 
-@Preview
+@Preview()
 @Composable
 fun SplashScreenPreview() {
     SplashIcon(scale = remember {
