@@ -110,7 +110,7 @@ fun NottyTopAppBar(
                     end.linkTo(profileAction.start)
                 },
                 text = stringResource(id = destination.title ?: R.string.app_name),
-                style = MaterialTheme.typography.subtitle1,
+                style = MaterialTheme.typography.h6,
                 textAlign = TextAlign.Center
             )
 

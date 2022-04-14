@@ -1,14 +1,10 @@
 package com.hari.notty.ui.auth
 
-import androidx.compose.foundation.BorderStroke
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
+import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Add
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -18,7 +14,9 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.google.accompanist.insets.systemBarsPadding
 import com.hari.notty.R
+import com.hari.notty.ui.destinations.SignInScreenDestination
 import com.hari.notty.ui.theme.Facebook
 import com.hari.notty.ui.theme.Google
 import com.ramcosta.composedestinations.annotation.Destination
@@ -32,6 +30,8 @@ fun WelcomeScreen(
     Column(
         modifier = Modifier
             .fillMaxSize()
+            .systemBarsPadding()
+            .verticalScroll(rememberScrollState())
             .background(MaterialTheme.colors.surface),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
@@ -72,7 +72,7 @@ fun WelcomeScreen(
                 modifier = Modifier
                     .weight(1.0f)
                     .padding(start = 40.dp),
-                onClick = { },
+                onClick = { navigator.navigate(SignInScreenDestination) },
                 shape = RoundedCornerShape(50),
                 colors = ButtonDefaults.buttonColors(
                     backgroundColor = Color.Blue,
@@ -81,14 +81,15 @@ fun WelcomeScreen(
             ) {
                 Text(
                     text = "Login",
-                    modifier = Modifier.padding(vertical = 5.dp)
+                    modifier = Modifier.padding(vertical = 5.dp),
+                    style = MaterialTheme.typography.button
                 )
             }
             Spacer(modifier = Modifier.size(12.dp))
             OutlinedButton(
                 modifier = Modifier
                     .weight(1.0f)
-                    .padding( end = 40.dp),
+                    .padding(end = 40.dp),
                 onClick = { },
                 shape = RoundedCornerShape(50),
                 colors = ButtonDefaults.outlinedButtonColors(
@@ -98,9 +99,9 @@ fun WelcomeScreen(
             ) {
                 Text(
                     text = "Signup",
-                    modifier = Modifier.padding(vertical = 5.dp)
+                    modifier = Modifier.padding(vertical = 5.dp),
+                    style = MaterialTheme.typography.button
                 )
-
             }
         }
 

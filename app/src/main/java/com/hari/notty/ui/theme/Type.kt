@@ -80,7 +80,7 @@ val NottyTypography = Typography(
 
     button = TextStyle(
         fontFamily = ManropeFontFamily,
-        fontWeight = FontWeight.Medium,
+        fontWeight = FontWeight.Bold,
         fontSize = 14.sp,
         letterSpacing = 1.25.sp
     ),

@@ -17,6 +17,7 @@ val Destination.title
             AllNoteScreenDestination -> R.string.search_from_notes
             AddNoteScreenDestination -> R.string.add_note
             LabelsScreenDestination -> R.string.labels
+            SignInScreenDestination -> R.string.login
             else -> null
         }
     }
@@ -26,7 +27,7 @@ fun Destination.isSplashScreen() = this == SplashScreenDestination
 
 fun Destination.isStartingScreens(): Boolean {
   return  when(this){
-        SplashScreenDestination, WelcomeScreenDestination -> true
+        SplashScreenDestination, WelcomeScreenDestination, SignInScreenDestination -> true
         else -> false
     }
 }

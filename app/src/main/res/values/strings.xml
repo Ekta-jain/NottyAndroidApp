@@ -18,6 +18,9 @@
     <string name="delete">Delete</string>
     <string name="rename">Rename</string>
     <string name="options">Options</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="login">Login</string>
 
 
 </resources>
