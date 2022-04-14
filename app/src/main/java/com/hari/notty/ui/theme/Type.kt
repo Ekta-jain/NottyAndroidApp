@@ -13,7 +13,7 @@ private val ManropeFontFamily = FontFamily(
     Font(R.font.manrope_light, FontWeight.Light),
     Font(R.font.manrope_medium, FontWeight.Medium),
     Font(R.font.manrope_semi_bold, FontWeight.SemiBold),
-    Font(R.font.manrope_bold, FontWeight.Bold)
+    Font(R.font.manrope_extra_bold, FontWeight.Bold)
 )
 
 val NottyTypography = Typography(

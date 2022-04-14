@@ -27,7 +27,7 @@ fun Destination.isSplashScreen() = this == SplashScreenDestination
 
 fun Destination.isStartingScreens(): Boolean {
   return  when(this){
-        SplashScreenDestination, WelcomeScreenDestination, SignInScreenDestination -> true
+        SplashScreenDestination, WelcomeScreenDestination, SignInScreenDestination, SignUpScreenDestination -> true
         else -> false
     }
 }

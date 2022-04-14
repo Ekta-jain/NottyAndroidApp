@@ -1,11 +1,12 @@
 package com.hari.notty.ui.auth
 
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.ClickableText
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.*
@@ -20,33 +21,60 @@ import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
+import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import com.google.accompanist.insets.systemBarsPadding
 import com.hari.notty.R
 import com.hari.notty.ui.components.NottyTextField
 import com.hari.notty.ui.theme.Blue
-import com.hari.notty.ui.theme.Facebook
-import com.hari.notty.ui.theme.Google
 import com.hari.notty.ui.theme.NottyGray
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 
-@Destination()
+@Destination
 @Composable
-fun SignInScreen(
+fun SignUpScreen(
     navigator: DestinationsNavigator
 ) {
+    var fullName by remember { mutableStateOf("") }
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
 
+    var fullNameLeadingIconTint by remember { mutableStateOf(NottyGray.copy(alpha = 0.38f)) }
     var emailLeadingIconTint by remember { mutableStateOf(NottyGray.copy(alpha = 0.38f)) }
     var passwordLeadingIconTint by remember { mutableStateOf(NottyGray.copy(alpha = 0.38f)) }
 
     var passwordVisibility: Boolean by remember { mutableStateOf(false) }
+
+    val termsAndPrivacyAnnotatedString = buildAnnotatedString {
+        append("By signing up, you're agree to our ")
+        pushStringAnnotation(
+            tag = "Terms & Condition",// provide tag which will then be provided when you click the text
+            annotation = "Terms & Condition"
+        )
+        withStyle(style = SpanStyle(Blue)) {
+            append("Terms & Condition")
+        }
+
+        pop()
+
+        append(" and ")
+
+        pushStringAnnotation(
+            tag = "Privacy Policy",// provide tag which will then be provided when you click the text
+            annotation = "Privacy Policy"
+        )
+        withStyle(style = SpanStyle(Blue)) {
+            append("Privacy Policy")
+        }
+        pop()
+    }
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -59,8 +87,11 @@ fun SignInScreen(
     ) {
 
         Image(
-            modifier = Modifier.padding(horizontal = 16.dp).weight(1f),
-            painter = painterResource(id = R.drawable.ic_notebook),
+            modifier = Modifier
+                .padding(horizontal = 16.dp)
+                .weight(1f)
+            ,
+            painter = painterResource(id = R.drawable.ic_happy_feeling),
             contentDescription = "Welcome Image"
         )
 
@@ -70,11 +101,38 @@ fun SignInScreen(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(start = 16.dp),
-            text = stringResource(id = R.string.login),
+            text = stringResource(id = R.string.sing_up),
             style = MaterialTheme.typography.h4.copy(fontWeight = FontWeight.ExtraBold)
         )
 
         Spacer(modifier = Modifier.height(20.dp))
+
+        NottyTextField(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 16.dp)
+                .onFocusChanged { focusState: FocusState ->
+                    fullNameLeadingIconTint = if (focusState.isFocused) {
+                        Blue
+                    } else {
+                        NottyGray.copy(alpha = .38f)
+                    }
+                },
+            value = fullName,
+            onValueChange = { fullName = it },
+            label = stringResource(R.string.full_name),
+            singleLine = true,
+            keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Text),
+            leadingIcon = {
+                Icon(
+                    painter = painterResource(id = R.drawable.ic_outline_person_24),
+                    contentDescription = "",
+                    tint = fullNameLeadingIconTint
+                )
+            }
+        )
+
+        Spacer(modifier = Modifier.height(8.dp))
 
         NottyTextField(
             modifier = Modifier
@@ -141,16 +199,23 @@ fun SignInScreen(
             keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Password)
         )
 
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(end = 16.dp),
-            horizontalArrangement = Arrangement.End
-        ) {
-            TextButton(onClick = { }) {
-                Text("Forget Password?", color = Blue)
+        Spacer(modifier = Modifier.height(20.dp))
+
+        ClickableText(
+            modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp),
+            text = termsAndPrivacyAnnotatedString,
+            style = MaterialTheme.typography.subtitle2,
+            onClick = {offset ->
+                termsAndPrivacyAnnotatedString.getStringAnnotations(
+                    tag = "Terms & Condition",// tag which you used in the buildAnnotatedString
+                    start = offset,
+                    end = offset
+                )[0].let { annotation ->
+                    //do your stuff when it gets clicked
+                    Log.d("Clicked", annotation.item)
+                }
             }
-        }
+        )
 
         Spacer(modifier = Modifier.height(20.dp))
 
@@ -164,47 +229,10 @@ fun SignInScreen(
             )
         ) {
             Text(
-                text = "Login",
+                text = "Signup",
                 modifier = Modifier.padding(vertical = 5.dp),
                 style = MaterialTheme.typography.button.copy(fontWeight = FontWeight.Bold)
             )
-        }
-
-        Spacer(modifier = Modifier.height(40.dp))
-
-
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.Center
-        ) {
-            IconButton(
-                onClick = { },
-                modifier = Modifier
-                    .then(Modifier.size(50.dp))
-                    .background(Facebook, shape = CircleShape)
-            ) {
-                Icon(
-                    painter = painterResource(id = R.drawable.ic_facebook),
-                    contentDescription = "Facebook button",
-                    tint = Color.White
-                )
-            }
-
-            Spacer(modifier = Modifier.size(8.dp))
-
-            IconButton(
-                onClick = { },
-                modifier = Modifier
-                    .then(Modifier.size(50.dp))
-                    .background(Google, shape = CircleShape)
-            ) {
-                Icon(
-                    painter = painterResource(id = R.drawable.ic_google),
-                    contentDescription = "Google button",
-                    tint = Color.White
-                )
-            }
-
         }
 
         Spacer(modifier = Modifier.height(10.dp))
@@ -216,12 +244,12 @@ fun SignInScreen(
         ) {
 
             Text(
-                text = "New to Notty?",
+                text = "Joined us before?",
                 style = MaterialTheme.typography.body2.copy(color = Color.Gray)
             )
 
             TextButton(onClick = { }) {
-                Text("Signup", color = Blue)
+                Text("SignIn", color = Blue)
             }
 
         }

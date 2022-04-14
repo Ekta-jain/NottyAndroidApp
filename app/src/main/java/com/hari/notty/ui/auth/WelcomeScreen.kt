@@ -10,6 +10,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -17,6 +18,7 @@ import androidx.compose.ui.unit.dp
 import com.google.accompanist.insets.systemBarsPadding
 import com.hari.notty.R
 import com.hari.notty.ui.destinations.SignInScreenDestination
+import com.hari.notty.ui.destinations.SignUpScreenDestination
 import com.hari.notty.ui.theme.Facebook
 import com.hari.notty.ui.theme.Google
 import com.ramcosta.composedestinations.annotation.Destination
@@ -31,6 +33,7 @@ fun WelcomeScreen(
         modifier = Modifier
             .fillMaxSize()
             .systemBarsPadding()
+            .padding(vertical = 16.dp)
             .verticalScroll(rememberScrollState())
             .background(MaterialTheme.colors.surface),
         verticalArrangement = Arrangement.Center,
@@ -46,9 +49,10 @@ fun WelcomeScreen(
         Spacer(modifier = Modifier.height(30.dp))
 
         Text(
-            text = "Welcome",
-            style = MaterialTheme.typography.h5.copy(fontWeight = FontWeight.Bold),
-            color = Color.Black
+            modifier = Modifier
+                .padding(start = 16.dp),
+            text = stringResource(id = R.string.welcome),
+            style = MaterialTheme.typography.h4.copy(fontWeight = FontWeight.ExtraBold)
         )
 
         Spacer(modifier = Modifier.height(10.dp))
@@ -90,7 +94,7 @@ fun WelcomeScreen(
                 modifier = Modifier
                     .weight(1.0f)
                     .padding(end = 40.dp),
-                onClick = { },
+                onClick = {navigator.navigate(SignUpScreenDestination) },
                 shape = RoundedCornerShape(50),
                 colors = ButtonDefaults.outlinedButtonColors(
                     contentColor = Color.Blue
