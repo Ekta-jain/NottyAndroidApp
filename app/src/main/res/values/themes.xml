@@ -15,8 +15,8 @@
 
 
     <style name="Theme.Notty.Starting" parent="Theme.SplashScreen">
-        <item name="windowSplashScreenBackground">@color/black30</item>
-        <item name="windowSplashScreenAnimatedIcon">@drawable/logo_svg</item>
+        <item name="windowSplashScreenBackground">@color/yellow</item>
+        <item name="windowSplashScreenAnimatedIcon">@mipmap/ic_launcher</item>
         <item name="postSplashScreenTheme">@style/Theme.Notty</item>
     </style>
 

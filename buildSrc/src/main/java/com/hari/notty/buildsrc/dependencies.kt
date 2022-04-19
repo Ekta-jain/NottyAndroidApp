@@ -40,7 +40,7 @@ object Libs {
     object AndroidX {
         const val appcompat = "androidx.appcompat:appcompat:1.4.0"
         const val coreKtx = "androidx.core:core-ktx:1.7.0"
-        const val splashScreen = "androidx.core:core-splashscreen:1.0.0-beta01"
+        const val splashScreen = "androidx.core:core-splashscreen:1.0.0-beta02"
 
         object Activity {
             const val activityCompose = "androidx.activity:activity-compose:1.4.0"
