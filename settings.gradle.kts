@@ -7,5 +7,7 @@ dependencyResolutionManagement {
     }
 }
 rootProject.name = "Notty"
-include ':app'
-include ':core'
+include (
+    ":app",
+    ":core",
+)
