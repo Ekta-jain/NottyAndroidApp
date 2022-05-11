@@ -128,10 +128,25 @@ object Libs {
         }
     }
 
-    object Retrofit {
+    object Network {
         private const val version = "2.9.0"
+        private const val versionOkHttp = "4.9.3"
         const val retrofit = "com.squareup.retrofit2:retrofit:$version"
         const val gsonConverter = "com.squareup.retrofit2:converter-gson:$version"
+
+        const val okHttpBom = "com.squareup.okhttp3:okhttp-bom:$versionOkHttp"
+        const val okHttp = "com.squareup.okhttp3:okhttp"
+        const val loggingInterceptor = "com.squareup.okhttp3:logging-interceptor"
+    }
+
+    object Ktor{
+        private const val ktorVersion = "2.0.0"
+        const val core = "io.ktor:ktor-client-core:${ktorVersion}"
+        const val androidEngine = "io.ktor:ktor-client-android:${ktorVersion}"
+        const val contentNegotiation = "io.ktor:ktor-client-content-negotiation:${ktorVersion}"
+        const val serialization = "io.ktor:ktor-serialization-kotlinx-json:$ktorVersion"
+        const val logging = "io.ktor:ktor-client-logging-jvm:${ktorVersion}"
+        const val jsonSerialization = "org.jetbrains.kotlinx:kotlinx-serialization-json:1.3.2"
     }
 
 
